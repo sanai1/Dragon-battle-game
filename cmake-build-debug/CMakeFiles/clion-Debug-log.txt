@@ -1,0 +1,5 @@
+/home/aleksandr/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/aleksandr/clion/bin/ninja/linux/x64/ninja -G Ninja -S /home/aleksandr/CLionProjects/game -B /home/aleksandr/CLionProjects/game/cmake-build-debug
+-- Found SFML 2.5.1 in /usr/lib/x86_64-linux-gnu/cmake/SFML
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/aleksandr/CLionProjects/game/cmake-build-debug
