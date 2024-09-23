@@ -7,7 +7,7 @@
 
 void initStartSprite(sf::Texture& texture, sf::Sprite& sprite) {
 
-    if (!texture.loadFromFile("/home/aleksandr/CLionProjects/image/start-photo.jpg"))
+    if (!texture.loadFromFile("/home/aleksandr/CLionProjects/game/image/start-photo.jpg"))
         std::cout << "start-photo.jpg" << std::endl;
     sprite.setTexture(texture);
     sprite.setPosition(20, 105);
@@ -16,7 +16,7 @@ void initStartSprite(sf::Texture& texture, sf::Sprite& sprite) {
 }
 
 void initDragon(std::string nameDragon, sf::Texture& textureDragon, sf::Sprite& spriteDragon) {
-    if (!textureDragon.loadFromFile("/home/aleksandr/CLionProjects/image/" + nameDragon))
+    if (!textureDragon.loadFromFile("/home/aleksandr/CLionProjects/game/image/" + nameDragon))
         std::cout << "fail " << nameDragon << std::endl;
     textureDragon.setSmooth(true);
     spriteDragon.setTexture(textureDragon);
@@ -78,7 +78,7 @@ void initLevel(
 }
 
 void initCloseButton(sf::Texture& texture, sf::Sprite& sprite) {
-    if (!texture.loadFromFile("/home/aleksandr/CLionProjects/image/close-button.png"))
+    if (!texture.loadFromFile("/home/aleksandr/CLionProjects/game/image/close-button.png"))
         cout << "fail close-button.png" << endl;
     texture.setSmooth(true);
     sprite.setTexture(texture);

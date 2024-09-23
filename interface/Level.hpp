@@ -27,7 +27,6 @@ public:
             is_alive_ = true;
         else
             is_alive_ = false;
-        std::cout << "test" << std::endl;
     }
 
     bool isAlive() const {

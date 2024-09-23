@@ -27,8 +27,14 @@ public:
 
     string getQuestion(string str) {
         srand(time(0));
-        int a = rand() % 100;
-        int b = rand() % 100;
+        int a, b;
+        if (str != "*") {
+            a = rand() % 100;
+            b = rand() % 100;
+        } else {
+            a = rand() % 40;
+            b = rand() % 40;
+        }
         _a = a;
         _b = b;
         if (str == "+")

@@ -14,7 +14,6 @@ public:
         return "Hero\n"
                "HP: " + to_string(getHealth()) + "\n"
                                                  "Damage: " + to_string(getAttack());
-//        std::cout << "HP = " << this->getHealth() << "\nТекущее значение Attack = " << this->getAttack() << std::endl;
     }
 
 private:

@@ -36,7 +36,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 21,
+				"line" : 22,
 				"parent" : 0
 			},
 			{
@@ -157,7 +157,8 @@
 				7,
 				8,
 				9,
-				10
+				10,
+				11
 			]
 		}
 	],
@@ -217,6 +218,11 @@
 		{
 			"backtrace" : 1,
 			"path" : "logic/BlackDragon.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "logic/FileInfo.hpp",
 			"sourceGroupIndex" : 1
 		}
 	],
