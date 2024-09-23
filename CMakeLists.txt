@@ -16,6 +16,7 @@ add_executable(game main.cpp
         logic/GreenDragon.hpp
         logic/BlueDragon.hpp
         logic/RebDragon.hpp
-        logic/BlackDragon.hpp)
+        logic/BlackDragon.hpp
+        logic/FileInfo.hpp)
 
 target_link_libraries(game sfml-graphics)

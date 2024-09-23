@@ -8,6 +8,7 @@
 #include "logic/BlueDragon.hpp"
 #include "logic/RebDragon.hpp"
 #include "logic/BlackDragon.hpp"
+#include "logic/FileInfo.hpp"
 
 using namespace std;
 
@@ -15,6 +16,12 @@ vector<int> status;
 
 sf::Texture textureStart;
 sf::Sprite spriteStart;
+
+sf::Texture textureCloseButton;
+sf::Sprite spriteCloseButton;
+
+sf::RectangleShape boxReset, boxNotSave, boxSave;
+sf::Text textReset, textNotSave, textSave;
 
 sf::Texture textureDragon;
 sf::Sprite spriteDragon;
@@ -53,13 +60,11 @@ int main() {
     textName.setPosition(400, 5);
     textName.setFillColor(sf::Color::Black);
 
-    vector<Level> vectorLevel;
     string fileTop = "/home/aleksandr/CLionProjects/image/number-";
-    vectorLevel.emplace_back(fileTop, 1, 75, 200);
-    vectorLevel.emplace_back(fileTop, 2, 550, 200);
-    vectorLevel.emplace_back(fileTop, 3, 75, 650);
-    vectorLevel.emplace_back(fileTop, 4, 550, 650);
-    vectorLevel[0].setIsAlive(true);
+    Level level1(fileTop, 1, 75, 200);
+    Level level2(fileTop, 2, 550, 200);
+    Level level3(fileTop, 3, 75, 650);
+    Level level4(fileTop, 4, 550, 650);
 
     Dragon* masDragon[] = {
             new GreenDragon(200, 20),
@@ -69,10 +74,12 @@ int main() {
     int masCntDragon[] = {0, 0, 0, 0};
     string answer, question, info, dragonInfo, heroInfo;
     int cntTask = 0, cntRight = 0;
-    info = to_string(cntTask) + "/10 task\n" + to_string(cntRight) + "/" + to_string(cntTask) + " right";
     Hero hero(0, "hero", 100, 20);
+    readFile(level1, level2, level3, level4, masDragon, masCntDragon, hero, cntTask, cntRight);
+    info = to_string(cntTask) + "/10 task\n" + to_string(cntRight) + "/" + to_string(cntTask) + " right";
 
-    while (window.isOpen()) {
+    int versionSave = 0;
+    while (window.isOpen() && versionSave == 0) {
         sf::Vector2i mousePoz = sf::Mouse::getPosition(window);
 
         sf::Event event;
@@ -81,31 +88,39 @@ int main() {
                 window.close();
 
             if (event.type == sf::Event::MouseButtonPressed && event.key.code == sf::Mouse::Left) {
-                if (vectorLevel[0].getSprite().getGlobalBounds().contains(mousePoz.x, mousePoz.y) && vectorLevel[0].isAlive()) {
+                if (level1.getSprite().getGlobalBounds().contains(mousePoz.x, mousePoz.y) && level1.isAlive()) {
                     if (status.back() == 5) {
                         status.emplace_back(1);
                         question = masDragon[0]->question();
                     }
-                } else if (vectorLevel[1].getSprite().getGlobalBounds().contains(mousePoz.x, mousePoz.y) && vectorLevel[1].isAlive()) {
+                } else if (level2.getSprite().getGlobalBounds().contains(mousePoz.x, mousePoz.y) && level2.isAlive()) {
                     if (status.back() == 5) {
                         status.emplace_back(2);
                         question = masDragon[1]->question();
                     }
-                } else if (vectorLevel[2].getSprite().getGlobalBounds().contains(mousePoz.x, mousePoz.y) && vectorLevel[2].isAlive()) {
+                } else if (level3.getSprite().getGlobalBounds().contains(mousePoz.x, mousePoz.y) && level3.isAlive()) {
                     if (status.back() == 5) {
                         status.emplace_back(3);
                         question = masDragon[2]->question();
                     }
-                } else if (vectorLevel[3].getSprite().getGlobalBounds().contains(mousePoz.x, mousePoz.y) && vectorLevel[3].isAlive()) {
+                } else if (level4.getSprite().getGlobalBounds().contains(mousePoz.x, mousePoz.y) && level4.isAlive()) {
                     if (status.back() == 5) {
                         status.emplace_back(4);
                         question = masDragon[3]->question();
                     }
+                } else if (spriteCloseButton.getGlobalBounds().contains(mousePoz.x, mousePoz.y)) {
+                    status.emplace_back(7);
                 } else if (boxName.getGlobalBounds().contains(mousePoz.x, mousePoz.y)) {
                     status.emplace_back(5);
                 } else if (boxAnswer.getGlobalBounds().contains(mousePoz.x, mousePoz.y)) {
                     if (status.back() == 1 || status.back() == 2 || status.back() == 3 || status.back() == 4)
                         status.emplace_back(6);
+                } else if (boxReset.getGlobalBounds().contains(mousePoz.x, mousePoz.y)) {
+                    versionSave = 2;
+                } else if (boxNotSave.getGlobalBounds().contains(mousePoz.x, mousePoz.y)) {
+                    versionSave = -1;
+                } else if (boxSave.getGlobalBounds().contains(mousePoz.x, mousePoz.y)) {
+                    versionSave = 1;
                 }
             }
 
@@ -171,27 +186,28 @@ int main() {
         window.draw(boxScreen);
         window.draw(textName);
 
+        initCloseButton(textureCloseButton, spriteCloseButton);
+        window.draw(spriteCloseButton);
+
         if (status.back() == 0) {
             answer = "";
             initStartSprite(textureStart, spriteStart);
             window.draw(spriteStart);
         } else if (status.back() == 1) {
             initLevel("dragon-green.png", textureDragon, spriteDragon, boxInput, boxAnswer, font, textBoxAnswer);
-
         } else if (status.back() == 2) {
             initLevel("dragon-blue.png", textureDragon, spriteDragon, boxInput, boxAnswer, font, textBoxAnswer);
-
         } else if (status.back() == 3) {
             initLevel("dragon-red.png", textureDragon, spriteDragon, boxInput, boxAnswer, font, textBoxAnswer);
-
         } else if (status.back() == 4) {
             initLevel("dragon-black.png", textureDragon, spriteDragon, boxInput, boxAnswer, font, textBoxAnswer);
-
         } else if (status.back() == 5) {
             answer = "";
-            for (Level i: vectorLevel) {
-                window.draw(i.getSprite());
-            }
+
+            window.draw(level1.getSprite());
+            window.draw(level2.getSprite());
+            window.draw(level3.getSprite());
+            window.draw(level4.getSprite());
         } else if (status.back() == 6) {
             status.pop_back();
             masCntDragon[status.back() - 1]++;
@@ -209,16 +225,41 @@ int main() {
                 if (masCntDragon[status.back() - 1] < 10)
                     question = masDragon[status.back() - 1]->question();
                 else {
-                    vectorLevel[status.back() - 1].setIsAlive(false);
-                    if (status.back() < 4)
-                        vectorLevel[status.back()].setIsAlive(true);
+                    if (status.back() == 1) {
+                        level1.setIsAlive(false);
+                    } else if (status.back() == 2) {
+                        level2.setIsAlive(false);
+                    } else if (status.back() == 3) {
+                            level3.setIsAlive(false);
+                    } else if (status.back() == 4) {
+                        level4.setIsAlive(false);
+                    }
+                    if (status.back() < 4) {
+                        if (status.back() == 1) {
+                            level2.setIsAlive(true);
+                        } else if (status.back() == 2) {
+                            level3.setIsAlive(true);
+                        } else if (status.back() == 3) {
+                            level4.setIsAlive(true);
+                        }
+                    }
                     rollback(hero, status, cntTask, cntRight, masDragon, masCntDragon);
                 }
             }
             info = to_string(cntTask) + "/10 task\n" + to_string(cntRight) + "/" + to_string(cntTask) + " right";
             answer = "";
+        } else if (status.back() == 7) {
+            initBoxClose(boxReset, boxNotSave, boxSave);
+            window.draw(boxReset);
+            window.draw(boxNotSave);
+            window.draw(boxSave);
+
+            initTextClose(font, textReset, textNotSave, textSave);
+            window.draw(textReset);
+            window.draw(textNotSave);
+            window.draw(textSave);
         }
-        if (status.back() != 0 && status.back() != 5) {
+        if (status.back() != 0 && status.back() != 5 && status.back() != 7) {
             window.draw(spriteDragon);
 
             window.draw(boxInput);
@@ -249,6 +290,11 @@ int main() {
 
         window.display();
     }
+
+    if (versionSave == 1)
+        writeFile(level1, level2, level3, level4, masDragon, masCntDragon, hero, cntTask, cntRight);
+    if (versionSave == 2)
+        writeFileReset();
 
     return 0;
 }

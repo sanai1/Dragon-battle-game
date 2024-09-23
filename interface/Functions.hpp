@@ -77,6 +77,55 @@ void initLevel(
     initBox(boxInput, boxAnswer, font, textBoxAnswer);
 }
 
+void initCloseButton(sf::Texture& texture, sf::Sprite& sprite) {
+    if (!texture.loadFromFile("/home/aleksandr/CLionProjects/image/close-button.png"))
+        cout << "fail close-button.png" << endl;
+    texture.setSmooth(true);
+    sprite.setTexture(texture);
+    sprite.setScale(0.15, 0.15);
+    sprite.setPosition(910, 10);
+}
+
+void initBoxClose(sf::RectangleShape& boxReset, sf::RectangleShape& boxNotSave, sf::RectangleShape& boxSave) {
+    boxSave.setOutlineThickness(2);
+    boxSave.setOutlineColor(sf::Color::Black);
+    boxSave.setPosition(380, 200);
+    boxSave.setSize(sf::Vector2f(250, 100));
+    boxSave.setFillColor(sf::Color::Green);
+
+    boxNotSave.setOutlineThickness(2);
+    boxNotSave.setOutlineColor(sf::Color::Black);
+    boxNotSave.setPosition(380, 450);
+    boxNotSave.setSize(sf::Vector2f(250, 100));
+    boxNotSave.setFillColor(sf::Color::Yellow);
+
+    boxReset.setOutlineThickness(2);
+    boxReset.setOutlineColor(sf::Color::Black);
+    boxReset.setPosition(380, 700);
+    boxReset.setSize(sf::Vector2f(250, 100));
+    boxReset.setFillColor(sf::Color::Red);
+}
+
+void initTextClose(sf::Font& font, sf::Text& textReset, sf::Text& textNotSave, sf::Text& textSave) {
+    textReset.setFont(font);
+    textReset.setString("Reset");
+    textReset.setCharacterSize(60);
+    textReset.setPosition(425, 710);
+    textReset.setFillColor(sf::Color::Black);
+
+    textNotSave.setFont(font);
+    textNotSave.setString("Not save");
+    textNotSave.setCharacterSize(60);
+    textNotSave.setPosition(385, 460);
+    textNotSave.setFillColor(sf::Color::Black);
+
+    textSave.setFont(font);
+    textSave.setString("Save");
+    textSave.setCharacterSize(60);
+    textSave.setPosition(435, 210);
+    textSave.setFillColor(sf::Color::Black);
+}
+
 void initBoxDragonInfoBoxHeroInfo(sf::RectangleShape& boxDragonInfo, sf::RectangleShape& boxHeroInfo) {
     boxDragonInfo.setOutlineThickness(2);
     boxDragonInfo.setOutlineColor(sf::Color::Black);

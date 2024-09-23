@@ -22,6 +22,14 @@ public:
         is_alive_ = isAlive;
     }
 
+    void setIsAlive(int isAlive) {
+        if (isAlive == 1)
+            is_alive_ = true;
+        else
+            is_alive_ = false;
+        std::cout << "test" << std::endl;
+    }
+
     bool isAlive() const {
         return is_alive_;
     }
