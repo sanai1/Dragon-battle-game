@@ -7,7 +7,7 @@ public:
     BlackDragon(int health, int attack) : Dragon("Black", health, attack) {}
 
     std::string question() override {
-        return getQuestion("*");
+        return getQuestion("/");
     }
 
 };

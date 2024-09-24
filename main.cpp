@@ -51,7 +51,7 @@ int main() {
     boxScreen.setOutlineColor(sf::Color::Black);
     boxScreen.setPosition(5, 100);
     boxScreen.setSize(sf::Vector2f(990, 995));
-    boxScreen.setFillColor(sf::Color(0, 0, 255, 100));
+    boxScreen.setFillColor(sf::Color(255, 0, 255, 100));
 
     sf::Text textName;
     textName.setFont(font);
@@ -124,7 +124,7 @@ int main() {
                 }
             }
 
-            if (event.type == sf::Event::KeyPressed && (status.back() == 1 || status.back() == 2 || status.back() == 3 || status.back() == 4))
+            if (event.type == sf::Event::KeyPressed && (status.back() == 1 || status.back() == 2 || status.back() == 3 || status.back() == 4)) {
                 switch (event.key.code) {
                     case sf::Keyboard::Num0:
                     case sf::Keyboard::Numpad0:
@@ -178,6 +178,9 @@ int main() {
                         answer = answer.substr(0, answer.size() - 1);
                         break;
                 }
+                if (answer.size() > 10)
+                    answer = answer.substr(0, answer.size() - 1);
+            }
         }
 
         window.clear();

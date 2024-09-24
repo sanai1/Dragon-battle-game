@@ -28,12 +28,12 @@ public:
     string getQuestion(string str) {
         srand(time(0));
         int a, b;
-        if (str != "*") {
+        if (str != "*" && str != "/") {
             a = rand() % 100;
             b = rand() % 100;
         } else {
-            a = rand() % 40;
-            b = rand() % 40;
+            a = rand() % 25;
+            b = rand() % 25;
         }
         _a = a;
         _b = b;
@@ -43,6 +43,10 @@ public:
             _answer = _a - _b;
         else if (str == "*")
             _answer = _a * _b;
+        else if (str == "/") {
+            _answer = _a * _b;
+            swap(_a, _answer);
+        }
         return to_string(_a) + " " + str + " " + to_string(_b) + " = ?";
     }
 
