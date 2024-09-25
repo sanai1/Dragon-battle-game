@@ -81,7 +81,7 @@ int main() {
     readFile(level1, level2, level3, level4, masDragon, masCntDragon, hero, cntTask, cntRight);
     info = to_string(cntTask) + "/10 task\n" + to_string(cntRight) + "/" + to_string(cntTask) + " right";
 
-    int versionSave = 0;
+    int versionSave = 0, isGame = 0;
     int isWin = 0; clock_t timeStart = 0, timeEnd = 0;
     while (window.isOpen() && versionSave == 0) {
         sf::Vector2i mousePoz = sf::Mouse::getPosition(window);
@@ -220,16 +220,23 @@ int main() {
             window.draw(level4.getSprite());
 
             if (isWin != 0) {
-                if (isWin == 1)
-                    initIsWin(boxIsWin, font, textIsWin, "Level is passed");
-                else
+                if (isWin == 1) {
+                    if (isGame == 3) {
+                        initIsWin(boxIsWin, font, textIsWin, "Game is passed");
+                    } else {
+                        initIsWin(boxIsWin, font, textIsWin, "Level is passed");
+                    }
+                } else {
                     initIsWin(boxIsWin, font, textIsWin, "Level is failed");
+                }
                 window.draw(boxIsWin);
                 window.draw(textIsWin);
 
                 if (timeStart == 0) {
                     timeStart = clock();
                 } else if (timeEnd - timeStart > 500000) {
+                    if (isWin == 1)
+                        isGame++;
                     isWin = 0;
                     timeStart = 0;
                 }

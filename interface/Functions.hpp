@@ -170,18 +170,21 @@ void rollback(Hero& hero, vector<int>& status, int& cntTask, int& cntRight, Drag
 void initIsWin(sf::RectangleShape& boxIsWin, sf::Font& font, sf::Text& textIsWin, string str) {
     boxIsWin.setOutlineThickness(5);
     boxIsWin.setOutlineColor(sf::Color::Black);
-    boxIsWin.setPosition(325, 550);
-    boxIsWin.setSize(sf::Vector2f(350, 100));
+    boxIsWin.setPosition(315, 550);
+    boxIsWin.setSize(sf::Vector2f(370, 100));
     boxIsWin.setFillColor(sf::Color::Blue);
 
     textIsWin.setFont(font);
     textIsWin.setString(str);
     textIsWin.setCharacterSize(50);
-    if (str == "Level is passed") {
+    if (str == "Level is failed") {
+        textIsWin.setFillColor(sf::Color::Red);
+        textIsWin.setPosition(345, 565);
+    } else if (str == "Level is passed"){
         textIsWin.setFillColor(sf::Color::Green);
         textIsWin.setPosition(325, 565);
     } else {
-        textIsWin.setFillColor(sf::Color::Red);
-        textIsWin.setPosition(345, 565);
+        textIsWin.setFillColor(sf::Color::Green);
+        textIsWin.setPosition(320, 565);
     }
 }
