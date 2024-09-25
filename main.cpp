@@ -31,6 +31,9 @@ sf::RectangleShape boxInput, boxAnswer;
 sf::RectangleShape boxDragonInfo, boxHeroInfo;
 sf::Text textDragonInfo, textHeroInfo;
 
+sf::RectangleShape boxIsWin;
+sf::Text textIsWin;
+
 int main() {
     sf::RenderWindow window(sf::VideoMode(1000, 1100), "Game", sf::Style::None);
     status.emplace_back(0);
@@ -79,6 +82,7 @@ int main() {
     info = to_string(cntTask) + "/10 task\n" + to_string(cntRight) + "/" + to_string(cntTask) + " right";
 
     int versionSave = 0;
+    int isWin = 0; clock_t timeStart = 0, timeEnd = 0;
     while (window.isOpen() && versionSave == 0) {
         sf::Vector2i mousePoz = sf::Mouse::getPosition(window);
 
@@ -177,6 +181,9 @@ int main() {
                     case sf::Keyboard::BackSpace:
                         answer = answer.substr(0, answer.size() - 1);
                         break;
+                    case sf::Keyboard::Escape:
+                        answer = "#!0&$%";
+                        break;
                 }
                 if (answer.size() > 10)
                     answer = answer.substr(0, answer.size() - 1);
@@ -211,6 +218,23 @@ int main() {
             window.draw(level2.getSprite());
             window.draw(level3.getSprite());
             window.draw(level4.getSprite());
+
+            if (isWin != 0) {
+                if (isWin == 1)
+                    initIsWin(boxIsWin, font, textIsWin, "Level is passed");
+                else
+                    initIsWin(boxIsWin, font, textIsWin, "Level is failed");
+                window.draw(boxIsWin);
+                window.draw(textIsWin);
+
+                if (timeStart == 0) {
+                    timeStart = clock();
+                } else if (timeEnd - timeStart > 500000) {
+                    isWin = 0;
+                    timeStart = 0;
+                }
+                timeEnd = clock();
+            }
         } else if (status.back() == 6) {
             status.pop_back();
             masCntDragon[status.back() - 1]++;
@@ -219,10 +243,16 @@ int main() {
             if (masDragon[status.back() - 1]->check_answer(answer)) {
                 hero.attack(*masDragon[status.back() - 1]);
                 cntRight++;
+            } else if (answer == "#!0&$%") {
+                masDragon[status.back() - 1]->setHealth(0);
+                masCntDragon[status.back() - 1] = 10;
+                cntTask = 10;
+                cntRight = 10;
             } else
                 masDragon[status.back() - 1]->attack(hero);
 
             if (!hero.is_alive()) {
+                isWin = -1;
                 rollback(hero, status, cntTask, cntRight, masDragon, masCntDragon);
             } else {
                 if (masCntDragon[status.back() - 1] < 10)
@@ -246,6 +276,7 @@ int main() {
                             level4.setIsAlive(true);
                         }
                     }
+                    isWin = 1;
                     rollback(hero, status, cntTask, cntRight, masDragon, masCntDragon);
                 }
             }

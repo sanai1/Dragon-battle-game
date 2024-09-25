@@ -4,6 +4,7 @@ project(game)
 find_package(SFML 2.5.1 COMPONENTS graphics REQUIRED)
 
 set(CMAKE_CXX_STANDARD 17)
+#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++ -static-libgcc")
 
 add_executable(game main.cpp
         interface/Level.hpp
