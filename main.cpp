@@ -14,6 +14,8 @@ using namespace std;
 
 vector<int> status;
 
+int isGame = 0;
+
 sf::Texture textureStart;
 sf::Sprite spriteStart;
 
@@ -78,10 +80,10 @@ int main() {
     string answer, question, info, dragonInfo, heroInfo;
     int cntTask = 0, cntRight = 0;
     Hero hero(0, "hero", 100, 20);
-    readFile(level1, level2, level3, level4, masDragon, masCntDragon, hero, cntTask, cntRight);
+    readFile(level1, level2, level3, level4, masDragon, masCntDragon, hero, cntTask, cntRight, isGame);
     info = to_string(cntTask) + "/10 task\n" + to_string(cntRight) + "/" + to_string(cntTask) + " right";
 
-    int versionSave = 0, isGame = 0;
+    int versionSave = 0;
     int isWin = 0; clock_t timeStart = 0, timeEnd = 0;
     while (window.isOpen() && versionSave == 0) {
         sf::Vector2i mousePoz = sf::Mouse::getPosition(window);
@@ -333,7 +335,7 @@ int main() {
     }
 
     if (versionSave == 1)
-        writeFile(level1, level2, level3, level4, masDragon, masCntDragon, hero, cntTask, cntRight);
+        writeFile(level1, level2, level3, level4, masDragon, masCntDragon, hero, cntTask, cntRight, isGame);
     if (versionSave == 2)
         writeFileReset();
 

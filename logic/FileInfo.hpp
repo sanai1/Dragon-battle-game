@@ -6,7 +6,7 @@
 
 #pragma once
 
-void writeFile(Level& level1, Level& level2, Level& level3, Level& level4, Dragon* masDragon[], int masCntDragon[], const Hero& hero, int cntTask, int cntRight) {
+void writeFile(Level& level1, Level& level2, Level& level3, Level& level4, Dragon* masDragon[], int masCntDragon[], const Hero& hero, int cntTask, int cntRight, int isGame) {
     std::ofstream out;
     out.open("/home/aleksandr/CLionProjects/game/fileInfo.txt");
 
@@ -31,6 +31,8 @@ void writeFile(Level& level1, Level& level2, Level& level3, Level& level4, Drago
     out << cntTask << endl;
 
     out << cntRight << endl;
+
+    out << isGame;
 }
 
 void writeFileReset() {
@@ -47,11 +49,12 @@ void writeFileReset() {
           "200\n200\n200\n200\n"
           "0\n0\n0\n0\n"
           "100\n"
-          "0\n0";
-    out << str << endl;
+          "0\n0\n"
+          "0";
+    out << str;
 }
 
-void readFile(Level& level1, Level& level2, Level& level3, Level& level4, Dragon* masDragon[], int *masCntDragon, Hero& hero, int& cntTask, int& cntRight) {
+void readFile(Level& level1, Level& level2, Level& level3, Level& level4, Dragon* masDragon[], int *masCntDragon, Hero& hero, int& cntTask, int& cntRight, int& isGame) {
     string str;
     std::ifstream in("/home/aleksandr/CLionProjects/game/fileInfo.txt");
 
@@ -86,6 +89,9 @@ void readFile(Level& level1, Level& level2, Level& level3, Level& level4, Dragon
 
         getline(in, str);
         cntRight = stoi(str);
+
+        getline(in, str);
+        isGame = stoi(str);
     } else {
         cout << "fail read fileInfo.txt" << endl;
     }
