@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "/home/aleksandr/CLionProjects/game/interface/Level.hpp"
+#include "../interface/Level.hpp"
 #include "Dragon.hpp"
 #include "Hero.hpp"
 
@@ -8,7 +8,7 @@
 
 void writeFile(Level& level1, Level& level2, Level& level3, Level& level4, Dragon* masDragon[], int masCntDragon[], const Hero& hero, int cntTask, int cntRight, int isGame) {
     std::ofstream out;
-    out.open("/home/aleksandr/CLionProjects/game/fileInfo.txt");
+    out.open("fileInfo.txt");
 
     if (!out.is_open()) {
         cout << "fail write fileInfo.txt" << endl;
@@ -37,7 +37,7 @@ void writeFile(Level& level1, Level& level2, Level& level3, Level& level4, Drago
 
 void writeFileReset() {
     std::ofstream out;
-    out.open("/home/aleksandr/CLionProjects/game/fileInfo.txt");
+    out.open("fileInfo.txt");
 
     if (!out.is_open()) {
         cout << "fail open fileInfo.txt" << endl;
@@ -56,7 +56,7 @@ void writeFileReset() {
 
 void readFile(Level& level1, Level& level2, Level& level3, Level& level4, Dragon* masDragon[], int *masCntDragon, Hero& hero, int& cntTask, int& cntRight, int& isGame) {
     string str;
-    std::ifstream in("/home/aleksandr/CLionProjects/game/fileInfo.txt");
+    std::ifstream in("fileInfo.txt");
 
     if (in) {
         getline(in, str);

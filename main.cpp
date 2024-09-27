@@ -41,7 +41,7 @@ int main() {
     status.emplace_back(0);
 
     sf::Font font;
-    if (!font.loadFromFile("/home/aleksandr/CLionProjects/game/fonts/arial.ttf"))
+    if (!font.loadFromFile("fonts/arial.ttf"))
         cout << "fail arial.ttf" << endl;
 
     sf::RectangleShape boxName;
@@ -65,7 +65,7 @@ int main() {
     textName.setPosition(400, 5);
     textName.setFillColor(sf::Color::Black);
 
-    string fileTop = "/home/aleksandr/CLionProjects/game/image/number-";
+    string fileTop = "image/number-";
     Level level1(fileTop, 1, 75, 200);
     Level level2(fileTop, 2, 550, 200);
     Level level3(fileTop, 3, 75, 650);

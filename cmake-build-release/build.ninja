@@ -51,7 +51,7 @@ build cmake_object_order_depends_target_game: phony || CMakeFiles/game.dir
 
 build CMakeFiles/game.dir/main.cpp.o: CXX_COMPILER__game_unscanned_Release /home/aleksandr/CLionProjects/game/main.cpp || cmake_object_order_depends_target_game
   DEP_FILE = CMakeFiles/game.dir/main.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -fdiagnostics-color=always
+  FLAGS = -static-libstdc++ -static-libgcc -O3 -DNDEBUG -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/game.dir
   OBJECT_FILE_DIR = CMakeFiles/game.dir
 
@@ -64,7 +64,7 @@ build CMakeFiles/game.dir/main.cpp.o: CXX_COMPILER__game_unscanned_Release /home
 # Link the executable game
 
 build game: CXX_EXECUTABLE_LINKER__game_Release CMakeFiles/game.dir/main.cpp.o | /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1 /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1
-  FLAGS = -O3 -DNDEBUG
+  FLAGS = -static-libstdc++ -static-libgcc -O3 -DNDEBUG
   LINK_LIBRARIES = /usr/lib/x86_64-linux-gnu/libsfml-graphics.so.2.5.1  /usr/lib/x86_64-linux-gnu/libsfml-window.so.2.5.1  /usr/lib/x86_64-linux-gnu/libsfml-system.so.2.5.1
   OBJECT_DIR = CMakeFiles/game.dir
   POST_BUILD = :
